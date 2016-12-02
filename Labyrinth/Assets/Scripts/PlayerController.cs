@@ -14,15 +14,33 @@ public class PlayerController : MonoBehaviour {
 	{
 		rb = GetComponent<Rigidbody>();
 	}
-	
+
 	void FixedUpdate()
 	{
-		float moveHorizontal = Input.GetAxis("Horizontal");
-		float moveVertical = Input.GetAxis("Vertical");
 
-		Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+		if(Input.GetButton("Fire1"))
+		{
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit rayHit;
 
-		rb.AddForce(movement * speed);
+			if(Physics.Raycast(ray, out rayHit, 150))
+			{
+				Vector3 rayVector = rayHit.point;
+
+				Vector3 movement = rayVector - rb.position;
+				rb.AddForce(movement * (speed /2));
+			}
+		}
+		else
+		{
+			float moveHorizontal = Input.GetAxis("Horizontal");
+			float moveVertical = Input.GetAxis("Vertical");
+
+			Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+			rb.AddForce(movement * speed);
+		}
+
 	}
 
 	void OnTriggerEnter(Collider other)
