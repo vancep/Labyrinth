@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour {
 				Vector3 rayVector = rayHit.point;
 
 				Vector3 movement = rayVector - rb.position;
+				movement.Normalize();
+
 				rb.AddForce(movement * (speed /2));
 			}
 		}

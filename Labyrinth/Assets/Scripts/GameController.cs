@@ -33,9 +33,24 @@ public class GameController : MonoBehaviour
 
 	private PlayerController playerController;
 
+	public GameObject settingsObj;
+	private SettingsInfo settingsInfo;
+
 	// Use this for initialization
 	void Start () 
 	{
+
+		// get access to settings
+		settingsObj = GameObject.FindWithTag("Settings");
+
+		if(settingsObj == null)
+		{
+			settingsObj = Instantiate(settingsObj);
+		}
+		settingsInfo = settingsObj.GetComponent<SettingsInfo>();
+
+		Debug.Log("Level Size: " + settingsInfo.getLevelSize() + " Difficulty: " + settingsInfo.getDifficulty());
+
 		board = new float[width, length]; // just contains the y-vals of each block. used for testing stuff before moving real cubes
 		iBoard = new GameObject[width, length]; // contains the actual cubes that show up on screen
 
