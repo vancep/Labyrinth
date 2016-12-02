@@ -1,10 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+[System.Serializable]
+public struct coord
+{
+	public int x, z;
+}
 
 public class GameController : MonoBehaviour 
 {
+	public coord startCoord;
+	public coord endCoord;
+
 	public int length;  // x-axis
 	public int width;	// z-axis
+
+	public float chanceOfWall; // between 0.0 and 1.0! Values close to 1 will have a harder time to succeed. will need to increase number of attempts
+	public int attemptsToCreate;
 
 	public bool outsideBorder; // the outermost border
 
@@ -16,13 +29,24 @@ public class GameController : MonoBehaviour
 	private float[,] board;
 
 	// the instantiated 2d array of blocks
-	private Object[,] iBoard;
+	private GameObject[,] iBoard;
 
 	private PlayerController playerController;
 
 	// Use this for initialization
 	void Start () 
 	{
+		board = new float[width, length]; // just contains the y-vals of each block. used for testing stuff before moving real cubes
+		iBoard = new GameObject[width, length]; // contains the actual cubes that show up on screen
+
+		InstantiateBoard(); // only call this once! instantiates the real cubes, but they can be moved again later
+		SetBoardToDefault(); // sets both board and iBoard to 0.0f for all values
+
+		if(outsideBorder)
+		{
+			CreateBorderWalls(); // also only call this once or else you get walls over walls. thats just silly.
+		}
+
 		CreateBoard();
 
 		playerController = Object.FindObjectOfType<PlayerController>();
@@ -38,19 +62,23 @@ public class GameController : MonoBehaviour
 
 	void CreateBoard()
 	{
-		board = new float[width, length];
-		iBoard = new Object[width, length];
+		int attempts = 0;
 
-		SetBoardToDefault();
-
-		if(outsideBorder)
+		// create random boards until one is created with a path from start to finish
+		do 
 		{
-			CreateBorderWalls();
+			SetBoardToDefault();
+			CreateRandomBoard(chanceOfWall);
+			attempts++;
+			Debug.Log("Attempt: " + attempts);
+		} while (!isPath() && attempts < attemptsToCreate);
+
+		if(!isPath())
+		{
+			Debug.Log("Too many attempts to create a board, try with a smaller amount of walls");
 		}
 
-		CreateRandomBoard(0.2f);
-
-		InstantiateBoard();
+		setIBoard();
 
 		MovePlayerToStart();
 	}
@@ -117,8 +145,8 @@ public class GameController : MonoBehaviour
 		}
 
 		// set start and end positions
-		SetStartPos(0, 1, 0);
-		SetEndPos(width - 1, 1, length - 1);
+		SetStartPos(startCoord.x, 1, startCoord.z);
+		SetEndPos(endCoord.x, 1, endCoord.z);
 
 	}
 
@@ -130,7 +158,8 @@ public class GameController : MonoBehaviour
 		{
 			for(int j = 0; j < length; j++)
 			{
-				iBoard[i,j] = Instantiate(block, new Vector3(i, board[i, j], j), rotation);
+				iBoard[i,j] = (GameObject)Instantiate(block, new Vector3(i, 0.0f, j), rotation);
+				//iBoard[i,j].transform.position = new Vector3(iBoard[i,j].transform.position.x, 0.0f, iBoard[i,j].transform.position.z);
 				iBoard[i,j].name = "Block (" + i + ", " + j + ")";
 			}
 		}
@@ -146,6 +175,18 @@ public class GameController : MonoBehaviour
 			for(int j = 0; j < length; j++)
 			{
 				board[i, j] = 0.0f;
+				iBoard[i,j].transform.position = new Vector3(iBoard[i,j].transform.position.x, 0.0f, iBoard[i,j].transform.position.z);
+			}
+		}
+	}
+
+	private void setIBoard()
+	{
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				iBoard[i,j].transform.position = new Vector3(iBoard[i,j].transform.position.x, board[i,j], iBoard[i,j].transform.position.z);
 			}
 		}
 	}
@@ -158,7 +199,6 @@ public class GameController : MonoBehaviour
 
 	private void SetEndPos(int x, int y, int z)
 	{
-		Debug.Log("x: " + x + " z: " + z);
 		endCube.transform.position = new Vector3(x, y, z);
 		board[x,z] = 0.0f;
 	}
@@ -166,7 +206,7 @@ public class GameController : MonoBehaviour
 	private void Reset()
 	{
 		ResetPlayer();
-		ResetBoard();
+		CreateBoard();
 	}
 
 	private void ResetPlayer()
@@ -180,22 +220,74 @@ public class GameController : MonoBehaviour
 		player.transform.position = startCube.transform.position;
 	}
 
-	private void ResetBoard()
+	private bool isPath()
 	{
-		DestroyBoard();
-		CreateBoard();
-	}
 
-	private void DestroyBoard()
-	{
+		Queue<coord> paths = new Queue<coord>();
+		coord current = startCoord;
+		coord toAdd;
+
+		bool[,] marked = new bool[width, length];
+
+		// set all spots to unmarked. leaving a trail.
 		for(int i = 0; i < width; i++)
 		{
 			for(int j = 0; j < length; j++)
 			{
-				DestroyImmediate(iBoard[i, j]);
+				marked[i,j] = false;
 			}
 		}
+			
+		// add starting position to queue and mark it.
+		paths.Enqueue(current);
+		marked[current.x, current.z] = true;
+
+		do {
+			current = paths.Dequeue();
+
+			// check if at the end
+			if(current.x == endCoord.x && current.z == endCoord.z)
+			{
+				return true;
+			}
+			else
+			{
+				// check if can move up
+				if(current.x > 0 && board[current.x - 1, current.z] == 0.0f && marked[current.x - 1, current.z] == false)
+				{
+					toAdd.x = current.x - 1;
+					toAdd.z = current.z;
+					marked[toAdd.x, toAdd.z] = true;
+					paths.Enqueue(toAdd);
+				}
+				// check if can move right
+				if(current.z < length - 1 && board[current.x, current.z + 1] == 0.0f && marked[current.x, current.z + 1] == false)
+				{
+					toAdd.x = current.x;
+					toAdd.z = current.z + 1;
+					marked[toAdd.x, toAdd.z] = true;
+					paths.Enqueue(toAdd);
+				}
+				// check if can move down
+				if(current.x < width - 1 && board[current.x + 1, current.z] == 0.0f && marked[current.x + 1, current.z] == false)
+				{
+					toAdd.x = current.x + 1;
+					toAdd.z = current.z;
+					marked[toAdd.x, toAdd.z] = true;
+					paths.Enqueue(toAdd);
+				}
+				// check if can move left
+				if(current.z > 0 && board[current.x, current.z - 1] == 0.0f && marked[current.x, current.z - 1] == false)
+				{
+					toAdd.x = current.x;
+					toAdd.z = current.z - 1;
+					marked[toAdd.x, toAdd.z] = true;
+					paths.Enqueue(toAdd);
+				}
+			}
+
+		} while (paths.Count > 0);
+		
+		return false;
 	}
-
-
 }
