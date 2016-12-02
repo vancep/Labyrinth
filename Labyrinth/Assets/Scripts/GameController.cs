@@ -6,25 +6,32 @@ using System.Collections.Generic;
 public struct coord
 {
 	public int x, z;
+
+	public coord(int v1, int v2)
+	{
+		x = v1;
+		z = v2;
+	}
 }
 
 public class GameController : MonoBehaviour 
 {
-	public coord startCoord;
-	public coord endCoord;
-
-	public int length;  // x-axis
-	public int width;	// z-axis
-
-	public float chanceOfWall; // between 0.0 and 1.0! Values close to 1 will have a harder time to succeed. will need to increase number of attempts
-	public int attemptsToCreate;
-
 	public bool outsideBorder; // the outermost border
 
 	public GameObject player;
 	public GameObject block;
 	public GameObject startCube;
 	public GameObject endCube;
+	public GameObject laser;
+
+	private int length;  // x-axis
+	private int width;	// z-axis
+
+	private float chanceOfWall; // between 0.0 and 1.0! Values close to 1 will have a harder time to succeed. will need to increase number of attempts
+	private int attemptsToCreate;
+
+	private coord startCoord;
+	private coord endCoord;
 
 	private float[,] board;
 
@@ -33,23 +40,50 @@ public class GameController : MonoBehaviour
 
 	private PlayerController playerController;
 
-	public GameObject settingsObj;
+	private GameObject settingsObj;
 	private SettingsInfo settingsInfo;
 
 	// Use this for initialization
 	void Start () 
 	{
-
+		
 		// get access to settings
-		settingsObj = GameObject.FindWithTag("Settings");
+		getSettings();
 
-		if(settingsObj == null)
+		switch(settingsInfo.getLevelSize())
 		{
-			settingsObj = Instantiate(settingsObj);
+		case 0:
+			width = length = 15;
+			endCoord = new coord(14, 14);
+			break;
+		case 1:
+			width = length = 50;
+			endCoord = new coord(49, 49);
+			break;
+		case 2:
+			width = length = 100;
+			endCoord = new coord(99, 99);
+			break;
+		case 3:
+			width = length = 200;
+			endCoord = new coord(199, 199);
+			break;
 		}
-		settingsInfo = settingsObj.GetComponent<SettingsInfo>();
+		startCoord = new coord(0,0);
 
-		Debug.Log("Level Size: " + settingsInfo.getLevelSize() + " Difficulty: " + settingsInfo.getDifficulty());
+		switch(settingsInfo.getDifficulty())
+		{
+		case 0:
+			chanceOfWall = 0.2f;
+			break;
+		case 1:
+			chanceOfWall = 0.3f;
+			break;
+		case 2:
+			chanceOfWall = 0.4f;
+			break;
+		}
+		attemptsToCreate = 1000;
 
 		board = new float[width, length]; // just contains the y-vals of each block. used for testing stuff before moving real cubes
 		iBoard = new GameObject[width, length]; // contains the actual cubes that show up on screen
@@ -304,5 +338,18 @@ public class GameController : MonoBehaviour
 		} while (paths.Count > 0);
 		
 		return false;
+	}
+
+	private void getSettings()
+	{
+		if((settingsObj = GameObject.FindWithTag("Settings")) == null)
+		{
+			Instantiate(laser);
+			settingsObj = GameObject.FindWithTag("Settings");
+		}
+			
+		settingsInfo = settingsObj.GetComponent<SettingsInfo>();
+
+		Debug.Log("Level Size: " + settingsInfo.getLevelSize() + " Difficulty: " + settingsInfo.getDifficulty());
 	}
 }
