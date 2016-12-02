@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+
 using System.Collections;
 using System.Collections.Generic;
+
+using System.Diagnostics;
 
 [System.Serializable]
 public struct coord
@@ -23,6 +27,7 @@ public class GameController : MonoBehaviour
 	public GameObject startCube;
 	public GameObject endCube;
 	public GameObject laser;
+	public Text timeBox;
 
 	private int length;  // x-axis
 	private int width;	// z-axis
@@ -43,13 +48,20 @@ public class GameController : MonoBehaviour
 	private GameObject settingsObj;
 	private SettingsInfo settingsInfo;
 
+	private bool paused;
+
+	private Stopwatch stopWatch;
+
 	// Use this for initialization
 	void Start () 
 	{
-		
+		stopWatch = new Stopwatch();
+		PauseGame();
+
 		// get access to settings
 		getSettings();
 
+		// get level size
 		switch(settingsInfo.getLevelSize())
 		{
 		case 0:
@@ -71,6 +83,7 @@ public class GameController : MonoBehaviour
 		}
 		startCoord = new coord(0,0);
 
+		// get difficulty
 		switch(settingsInfo.getDifficulty())
 		{
 		case 0:
@@ -85,6 +98,7 @@ public class GameController : MonoBehaviour
 		}
 		attemptsToCreate = 1000;
 
+		// setup width and length of board
 		board = new float[width, length]; // just contains the y-vals of each block. used for testing stuff before moving real cubes
 		iBoard = new GameObject[width, length]; // contains the actual cubes that show up on screen
 
@@ -97,6 +111,8 @@ public class GameController : MonoBehaviour
 		}
 
 		CreateBoard();
+		MovePlayerToStart();
+		ResumeGame();
 
 		playerController = Object.FindObjectOfType<PlayerController>();
 		if(playerController != null)
@@ -105,7 +121,7 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			Debug.Log("Could not find player.");
+			UnityEngine.Debug.Log("Could not find player.");
 		}
 	}
 
@@ -119,22 +135,32 @@ public class GameController : MonoBehaviour
 			SetBoardToDefault();
 			CreateRandomBoard(chanceOfWall);
 			attempts++;
-			Debug.Log("Attempt: " + attempts);
+			UnityEngine.Debug.Log("Attempt: " + attempts);
 		} while (!isPath() && attempts < attemptsToCreate);
 
 		if(!isPath())
 		{
-			Debug.Log("Too many attempts to create a board, try with a smaller amount of walls");
+			UnityEngine.Debug.Log("Too many attempts to create a board, try with a smaller amount of walls");
 		}
 
 		setIBoard();
-
-		MovePlayerToStart();
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
+		// update time value
+		//timeBox.text = stopWatch.Elapsed.Minutes + ":" + stopWatch.Elapsed.Seconds;
+		//timeBox.text = string.Format("{:ss}",stopWatch.Elapsed);
+		//timeBox.text = string.Format("{0}:{1}", System.Math.Truncate((decimal)stopWatch.Elapsed.Minutes), System.Math.Truncate((decimal)stopWatch.Elapsed.Seconds));
+		//timeBox.text = stopWatch.Elapsed.ToString("c", "en-US");
+
+		System.TimeSpan ts = stopWatch.Elapsed;
+		timeBox.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+
+
+
+
 		// reset level if r pressed
 		if(Input.GetKeyUp(KeyCode.R))
 		{
@@ -145,7 +171,7 @@ public class GameController : MonoBehaviour
 		// reset level if player reached the end
 		if(playerController.completedLevel())
 		{
-			Debug.Log("Player completed level!");
+			UnityEngine.Debug.Log("Player completed level!");
 
 			Reset();
 		}
@@ -256,6 +282,8 @@ public class GameController : MonoBehaviour
 	{
 		ResetPlayer();
 		CreateBoard();
+		ResetStopWatch();
+		ResumeGame();
 	}
 
 	private void ResetPlayer()
@@ -350,6 +378,23 @@ public class GameController : MonoBehaviour
 			
 		settingsInfo = settingsObj.GetComponent<SettingsInfo>();
 
-		Debug.Log("Level Size: " + settingsInfo.getLevelSize() + " Difficulty: " + settingsInfo.getDifficulty());
+		UnityEngine.Debug.Log("Level Size: " + settingsInfo.getLevelSize() + " Difficulty: " + settingsInfo.getDifficulty());
+	}
+
+	private void PauseGame()
+	{
+		stopWatch.Stop();
+		paused = true;
+	}
+
+	private void ResumeGame()
+	{
+		stopWatch.Start();
+		paused = false;
+	}
+
+	private void ResetStopWatch()
+	{
+		stopWatch.Reset();
 	}
 }
