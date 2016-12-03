@@ -30,7 +30,7 @@ public class GameController : MonoBehaviour
 
 	public GameObject pausePanel;
 	public Button resumeButton;
-	public Button restartLevel;
+	public Button restartLevelButton;
 
 	public Text timeBox;
 	public Text scoreBox;
@@ -67,6 +67,10 @@ public class GameController : MonoBehaviour
 		score = 0;
 		UpdateScoreDisplay();
 		PauseGame();
+
+		// setup actions for buttons
+		resumeButton.onClick.AddListener(delegate { ToggleMenu();});
+		restartLevelButton.onClick.AddListener(delegate {Reset(false);});
 
 		// get access to settings
 		getSettings();
@@ -165,22 +169,13 @@ public class GameController : MonoBehaviour
 		// reset level if r pressed
 		if(Input.GetKeyUp(KeyCode.R))
 		{
-			Reset();
+			Reset(true);
 		}
 
 		// open pause menu when 'esc' hit
 		if(Input.GetKeyDown(KeyCode.Escape))
 		{
-			if(!paused)
-			{
-				PauseGame();
-				pausePanel.SetActive(true);
-			}
-			else
-			{
-				ResumeGame();
-				pausePanel.SetActive(false);
-			}
+			ToggleMenu();
 		}
 
 
@@ -190,7 +185,7 @@ public class GameController : MonoBehaviour
 			UnityEngine.Debug.Log("Player completed level!");
 			IncrementScore();
 			UpdateScoreDisplay();
-			Reset();
+			Reset(true);
 		}
 	}
 
@@ -293,12 +288,16 @@ public class GameController : MonoBehaviour
 		board[x,z] = 0.0f;
 	}
 
-	private void Reset()
+	private void Reset(bool resume)
 	{
 		ResetPlayer();
 		CreateBoard();
 		ResetStopWatch();
-		ResumeGame();
+
+		if(resume)
+		{
+			ResumeGame();
+		}
 	}
 
 	private void ResetPlayer()
@@ -436,4 +435,17 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	private void ToggleMenu()
+	{
+		if(!paused)
+		{
+			PauseGame();
+			pausePanel.SetActive(true);
+		}
+		else
+		{
+			ResumeGame();
+			pausePanel.SetActive(false);
+		}
+	}
 }

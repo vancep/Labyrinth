@@ -14,23 +14,71 @@ Platform assembly: C:\Users\Vance\Desktop\Labyrinth\Labyrinth\Builds\Labyrinth_W
 Loading C:\Users\Vance\Desktop\Labyrinth\Labyrinth\Builds\Labyrinth_Windows_0.011_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\Vance\Desktop\Labyrinth\Labyrinth\Builds\Labyrinth_Windows_0.011_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Vance\Desktop\Labyrinth\Labyrinth\Builds\Labyrinth_Windows_0.011_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.146 seconds
+- Completed reload, in  0.141 seconds
 Platform assembly: C:\Users\Vance\Desktop\Labyrinth\Labyrinth\Builds\Labyrinth_Windows_0.011_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Vance\Desktop\Labyrinth\Labyrinth\Builds\Labyrinth_Windows_0.011_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 59Hz; virtual: 3840x1080 at -1920,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.690494 ms
+UnloadTime: 0.654711 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 10f8 -> priority: 1 
-  Thread -> id: f88 -> priority: 1 
+  Thread -> id: a04 -> priority: 1 
+  Thread -> id: 29b8 -> priority: 1 
 _Scenes/Main
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 4.543511 ms
+UnloadTime: 2.390055 ms
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 302.
+Total: 0.217297 ms (FindLiveObjects: 0.008674 ms CreateObjectMapping: 0.018216 ms MarkObjects: 0.178478 ms  DeleteObjects: 0.010843 ms)
+
+Level Size: 3 Difficulty: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player completed level!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 243.836395 ms
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 334.
+Total: 0.372138 ms (FindLiveObjects: 0.020385 ms CreateObjectMapping: 0.015180 ms MarkObjects: 0.263706 ms  DeleteObjects: 0.071781 ms)
+
+_Scenes/Main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.404017 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 303.
+Total: 0.203635 ms (FindLiveObjects: 0.009542 ms CreateObjectMapping: 0.011710 ms MarkObjects: 0.173274 ms  DeleteObjects: 0.008457 ms)
+
 Level Size: 1 Difficulty: 1
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
@@ -39,9 +87,237 @@ Attempt: 1
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 12.546219 ms
 
-Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 13823.
-Total: 2.503691 ms (FindLiveObjects: 0.716083 ms CreateObjectMapping: 0.377559 ms MarkObjects: 1.374699 ms  DeleteObjects: 0.034915 ms)
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 334.
+Total: 0.331150 ms (FindLiveObjects: 0.016915 ms CreateObjectMapping: 0.012144 ms MarkObjects: 0.236381 ms  DeleteObjects: 0.065492 ms)
+
+_Scenes/Main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.621965 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 305.
+Total: 0.233128 ms (FindLiveObjects: 0.013445 ms CreateObjectMapping: 0.012361 ms MarkObjects: 0.196695 ms  DeleteObjects: 0.010192 ms)
+
+Level Size: 0 Difficulty: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 9
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 10
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 11
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 12
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 13
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 14
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player completed level!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player completed level!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 9
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player completed level!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 5
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 6
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 7
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 8
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.595466 ms
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 335.
+Total: 0.320958 ms (FindLiveObjects: 0.013445 ms CreateObjectMapping: 0.012144 ms MarkObjects: 0.231610 ms  DeleteObjects: 0.063324 ms)
+
+_Scenes/Main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.576640 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 306.
+Total: 0.290163 ms (FindLiveObjects: 0.014746 ms CreateObjectMapping: 0.014746 ms MarkObjects: 0.245706 ms  DeleteObjects: 0.014529 ms)
+
+Level Size: 1 Difficulty: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 12.065215 ms
+
+Unloading 19 unused Assets to reduce memory usage. Loaded Objects now: 337.
+Total: 0.331150 ms (FindLiveObjects: 0.010843 ms CreateObjectMapping: 0.011927 ms MarkObjects: 0.239200 ms  DeleteObjects: 0.068528 ms)
+
+_Scenes/Main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.461052 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 306.
+Total: 0.248525 ms (FindLiveObjects: 0.011927 ms CreateObjectMapping: 0.011927 ms MarkObjects: 0.213610 ms  DeleteObjects: 0.010626 ms)
+
+Level Size: 1 Difficulty: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Attempt: 4
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
 
 Quitting Application
  
