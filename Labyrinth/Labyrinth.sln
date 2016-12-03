@@ -1,7 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
+Project("{AECC77C6-BFAD-BA88-F455-19B8D2C86BC8}") = "Labyrinth", "Assembly-CSharp-firstpass.csproj", "{22E17455-D910-81A2-FD7E-F9EA0F914A59}"
+EndProject
 Project("{AECC77C6-BFAD-BA88-F455-19B8D2C86BC8}") = "Labyrinth", "Assembly-CSharp.csproj", "{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}"
+EndProject
+Project("{AECC77C6-BFAD-BA88-F455-19B8D2C86BC8}") = "Labyrinth", "Assembly-CSharp-Editor.csproj", "{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{22E17455-D910-81A2-FD7E-F9EA0F914A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22E17455-D910-81A2-FD7E-F9EA0F914A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22E17455-D910-81A2-FD7E-F9EA0F914A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22E17455-D910-81A2-FD7E-F9EA0F914A59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
