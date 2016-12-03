@@ -31,6 +31,7 @@ public class GameController : MonoBehaviour
 	public GameObject pausePanel;
 	public Button resumeButton;
 	public Button restartLevelButton;
+	public Button pauseButton;
 
 	public Text timeBox;
 	public Text scoreBox;
@@ -71,6 +72,7 @@ public class GameController : MonoBehaviour
 		// setup actions for buttons
 		resumeButton.onClick.AddListener(delegate { ToggleMenu();});
 		restartLevelButton.onClick.AddListener(delegate {Reset(false);});
+		pauseButton.onClick.AddListener(delegate { ToggleMenu();});
 
 		// get access to settings
 		getSettings();
@@ -437,6 +439,7 @@ public class GameController : MonoBehaviour
 
 	private void ToggleMenu()
 	{
+		pauseButton.gameObject.SetActive(!pauseButton.IsActive());
 		if(!paused)
 		{
 			PauseGame();
