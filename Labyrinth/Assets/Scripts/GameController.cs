@@ -403,12 +403,14 @@ public class GameController : MonoBehaviour
 
 	private void PauseGame()
 	{
+		Time.timeScale = 0;
 		stopWatch.Stop();
 		paused = true;
 	}
 
 	private void ResumeGame()
 	{
+		Time.timeScale = 1;
 		stopWatch.Start();
 		paused = false;
 	}
