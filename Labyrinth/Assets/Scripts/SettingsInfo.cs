@@ -64,4 +64,6 @@ public class SettingsInfo : MonoBehaviour
 	{
 		return levelSize; 
 	}
+
+
 }

@@ -26,11 +26,19 @@ public class GameController : MonoBehaviour
 	public GameObject block;
 	public GameObject startCube;
 	public GameObject endCube;
-	public GameObject laser;
+	public GameObject settings;
+
+	public GameObject pausePanel;
+	public Button resumeButton;
+	public Button restartLevel;
+
 	public Text timeBox;
+	public Text scoreBox;
 
 	private int length;  // x-axis
 	private int width;	// z-axis
+
+	private int score;
 
 	private float chanceOfWall; // between 0.0 and 1.0! Values close to 1 will have a harder time to succeed. will need to increase number of attempts
 	private int attemptsToCreate;
@@ -56,6 +64,8 @@ public class GameController : MonoBehaviour
 	void Start () 
 	{
 		stopWatch = new Stopwatch();
+		score = 0;
+		UpdateScoreDisplay();
 		PauseGame();
 
 		// get access to settings
@@ -105,6 +115,7 @@ public class GameController : MonoBehaviour
 		InstantiateBoard(); // only call this once! instantiates the real cubes, but they can be moved again later
 		SetBoardToDefault(); // sets both board and iBoard to 0.0f for all values
 
+		// create border walls
 		if(outsideBorder)
 		{
 			CreateBorderWalls(); // also only call this once or else you get walls over walls. thats just silly.
@@ -149,30 +160,36 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		// update time value
-		//timeBox.text = stopWatch.Elapsed.Minutes + ":" + stopWatch.Elapsed.Seconds;
-		//timeBox.text = string.Format("{:ss}",stopWatch.Elapsed);
-		//timeBox.text = string.Format("{0}:{1}", System.Math.Truncate((decimal)stopWatch.Elapsed.Minutes), System.Math.Truncate((decimal)stopWatch.Elapsed.Seconds));
-		//timeBox.text = stopWatch.Elapsed.ToString("c", "en-US");
-
-		System.TimeSpan ts = stopWatch.Elapsed;
-		timeBox.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
-
-
-
+		UpdateTimeDisplay();
 
 		// reset level if r pressed
 		if(Input.GetKeyUp(KeyCode.R))
 		{
 			Reset();
-
 		}
+
+		// open pause menu when 'esc' hit
+		if(Input.GetKeyDown(KeyCode.Escape))
+		{
+			if(!paused)
+			{
+				PauseGame();
+				pausePanel.SetActive(true);
+			}
+			else
+			{
+				ResumeGame();
+				pausePanel.SetActive(false);
+			}
+		}
+
 
 		// reset level if player reached the end
 		if(playerController.completedLevel())
 		{
 			UnityEngine.Debug.Log("Player completed level!");
-
+			IncrementScore();
+			UpdateScoreDisplay();
 			Reset();
 		}
 	}
@@ -222,7 +239,6 @@ public class GameController : MonoBehaviour
 		// set start and end positions
 		SetStartPos(startCoord.x, 1, startCoord.z);
 		SetEndPos(endCoord.x, 1, endCoord.z);
-
 	}
 
 	private void InstantiateBoard()
@@ -234,7 +250,6 @@ public class GameController : MonoBehaviour
 			for(int j = 0; j < length; j++)
 			{
 				iBoard[i,j] = (GameObject)Instantiate(block, new Vector3(i, 0.0f, j), rotation);
-				//iBoard[i,j].transform.position = new Vector3(iBoard[i,j].transform.position.x, 0.0f, iBoard[i,j].transform.position.z);
 				iBoard[i,j].name = "Block (" + i + ", " + j + ")";
 			}
 		}
@@ -368,11 +383,15 @@ public class GameController : MonoBehaviour
 		return false;
 	}
 
+	/// <summary>
+	/// Gets the settings that were picked in the previous menu.
+	/// If the menu was skipped, picks default settings.
+	/// </summary>
 	private void getSettings()
 	{
 		if((settingsObj = GameObject.FindWithTag("Settings")) == null)
 		{
-			Instantiate(laser);
+			Instantiate(settings);
 			settingsObj = GameObject.FindWithTag("Settings");
 		}
 			
@@ -397,4 +416,24 @@ public class GameController : MonoBehaviour
 	{
 		stopWatch.Reset();
 	}
+
+	private void UpdateScoreDisplay()
+	{
+		scoreBox.text = score + "";
+	}
+
+	private void UpdateTimeDisplay()
+	{
+		System.TimeSpan ts = stopWatch.Elapsed;
+		timeBox.text = string.Format("{0:00}:{1:00}", ts.Minutes, ts.Seconds);
+	}
+
+	private void IncrementScore()
+	{
+		if(score < 999999999)
+		{
+			score++;
+		}
+	}
+
 }
