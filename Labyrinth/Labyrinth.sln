@@ -5,8 +5,6 @@ Project("{AECC77C6-BFAD-BA88-F455-19B8D2C86BC8}") = "Labyrinth", "Assembly-CShar
 EndProject
 Project("{AECC77C6-BFAD-BA88-F455-19B8D2C86BC8}") = "Labyrinth", "Assembly-CSharp.csproj", "{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}"
 EndProject
-Project("{AECC77C6-BFAD-BA88-F455-19B8D2C86BC8}") = "Labyrinth", "Assembly-CSharp-Editor.csproj", "{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,10 +19,6 @@ Global
 		{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBEE44B2-AC02-2D81-086E-310C52B2BE1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9F1DFA4-BF97-5034-41DD-F8B383EEC68E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
