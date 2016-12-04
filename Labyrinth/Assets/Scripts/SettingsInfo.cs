@@ -5,6 +5,7 @@ public class SettingsInfo : MonoBehaviour
 {
 	private int difficulty;
 	private int levelSize;
+	private bool movingWalls;
 
 	// Use this for initialization
 	void Start () 
@@ -13,6 +14,7 @@ public class SettingsInfo : MonoBehaviour
 
 		difficulty = 0;
 		levelSize = 0;
+		movingWalls = false;
 	}
 	
 	// Update is called once per frame
@@ -63,6 +65,16 @@ public class SettingsInfo : MonoBehaviour
 	public int getLevelSize()
 	{
 		return levelSize; 
+	}
+
+	public void setMovingWalls(bool enabled)
+	{
+		movingWalls = enabled;
+	}
+
+	public bool getMovingWalls()
+	{
+		return movingWalls;
 	}
 
 

@@ -15,6 +15,9 @@ public class StartGame : MonoBehaviour
 	private GameObject levelSizeObj;
 	private Dropdown levelSizeDropdown;
 
+	private GameObject movingWallsObj;
+	private Toggle movingWallsToggle;
+
 	private SettingsInfo settingsInfo;
 
 	// Use this for initialization
@@ -35,6 +38,14 @@ public class StartGame : MonoBehaviour
 		if(levelSizeObj != null)
 		{
 			levelSizeDropdown = levelSizeObj.GetComponent<Dropdown>();
+		}
+
+		// get access to value for moving walls
+		movingWallsObj = GameObject.FindWithTag("MovingWalls");
+
+		if(movingWallsObj != null)
+		{
+			movingWallsToggle = movingWallsObj.GetComponent<Toggle>();
 		}
 
 		// get access to object that holds the settings
@@ -60,6 +71,17 @@ public class StartGame : MonoBehaviour
 		{
 			Debug.Log("Could Not Find Either Level Size Dropdown Object Or The Settings Info Object");
 			settingsInfo.setLevelSize(0);
+		}
+
+		// store moving wall settings
+		if(movingWallsToggle != null && settingsInfo != null)
+		{
+			settingsInfo.setMovingWalls(movingWallsToggle.isOn);
+		}
+		else
+		{
+			Debug.Log("Could Not Find Either Moving Walls Object Or The Settings Info Object");
+			settingsInfo.setMovingWalls(false);
 		}
 
 

@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour
 	public Text timeBox;
 	public Text scoreBox;
 
+	public bool blockMovementEnabled;
+
 	private int length;  // x-axis
 	private int width;	// z-axis
 
@@ -76,6 +78,9 @@ public class GameController : MonoBehaviour
 
 		// get access to settings
 		getSettings();
+
+		// get moving walls
+		blockMovementEnabled = settingsInfo.getMovingWalls();
 
 		// get level size
 		switch(settingsInfo.getLevelSize())
@@ -161,6 +166,11 @@ public class GameController : MonoBehaviour
 		}
 
 		setIBoard();
+
+		if(blockMovementEnabled)
+		{
+			enableBlockMovement();
+		}
 	}
 
 	// Update is called once per frame
@@ -274,6 +284,17 @@ public class GameController : MonoBehaviour
 			for(int j = 0; j < length; j++)
 			{
 				iBoard[i,j].transform.position = new Vector3(iBoard[i,j].transform.position.x, board[i,j], iBoard[i,j].transform.position.z);
+			}
+		}
+	}
+
+	private void enableBlockMovement()
+	{
+		for(int i = 0; i < width; i++)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				iBoard[i,j].GetComponent<BlockController>().SetupForMoving();
 			}
 		}
 	}
