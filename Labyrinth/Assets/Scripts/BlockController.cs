@@ -10,7 +10,7 @@ public class BlockController : MonoBehaviour
 	private float distToMarble;
 
 	private GameObject player;
-	private float maxDist = 15;
+	private float maxDist = 10;
 	private float minDist = 2;
 	private float b;
 	private float m;
@@ -37,7 +37,7 @@ public class BlockController : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player");
 	}
 
-	void FixedUpdate()
+	public void Move()
 	{
 		if(canMove)
 		{
@@ -58,6 +58,15 @@ public class BlockController : MonoBehaviour
 
 			this.gameObject.transform.position = new Vector3(this.gameObject.transform.position.x, y, this.gameObject.transform.position.z);
 		}
+		else
+		{
+			Debug.Log(this.name + " is not set to be moved");
+		}
+	}
+
+	void FixedUpdate()
+	{
+
 
 	}
 

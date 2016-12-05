@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
 	// the instantiated 2d array of blocks
 	private GameObject[,] iBoard;
 
+
 	private PlayerController playerController;
 
 	private GameObject settingsObj;
@@ -170,6 +171,15 @@ public class GameController : MonoBehaviour
 		if(blockMovementEnabled)
 		{
 			enableBlockMovement();
+			UpdateMovingBlocks(true);
+		}
+	}
+
+	void FixedUpdate()
+	{
+		if(blockMovementEnabled)
+		{
+			UpdateMovingBlocks(false);
 		}
 	}
 
@@ -473,5 +483,38 @@ public class GameController : MonoBehaviour
 			ResumeGame();
 			pausePanel.SetActive(false);
 		}
+	}
+
+	/// <summary>
+	/// Updates the moving blocks.
+	/// You don't normally want all the blocks trying to update because the far away blocks aren't going to change height
+	/// Which just causes lag if the program is trying to calculate all of that.
+	/// </summary>
+	/// <param name="allBlocks">If set to <c>true</c> all blocks.</param>
+	private void UpdateMovingBlocks(bool allBlocks)
+	{
+		if(allBlocks)
+		{
+			for(int i = 0; i < width; i++)
+			{
+				for(int j = 0; j < length; j++)
+				{
+					iBoard[i,j].GetComponent<BlockController>().Move();
+				}
+			}
+		}
+		else // just updates blocks within a small range around player
+		{
+			int updateRange = 11; // how far from player should blocks be moving
+
+			for(int i = Mathf.Max((int)(player.transform.position.x) - updateRange, 0); i < Mathf.Min((int)(player.transform.position.x) + updateRange, width); i++)
+			{
+				for(int j = Mathf.Max((int)(player.transform.position.z) - updateRange, 0); j < Mathf.Min((int)(player.transform.position.z) + updateRange, length); j++)
+				{
+					iBoard[i,j].GetComponent<BlockController>().Move();
+				}
+			}
+		}
+
 	}
 }
