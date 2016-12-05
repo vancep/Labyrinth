@@ -68,16 +68,28 @@ public class PlayerController : MonoBehaviour {
 
 	void OnCollisionEnter(Collision other)
 	{
-		// for noise when marble hits another object
+		// for noise when marble hits a block
+		// main issue with this is that i dont want the marble to keep making noise as it rolls along a wall.
+		// because as it rolls along the wall, it causes new collisions since the wall is made of multiple blocks
+		// and each time it reaches the next block, I dont want it to sound like it hit it instead of simply rolling along it.
 		if(other.gameObject.CompareTag("Block"))
 		{
 			// for now, if the marble collides into a block at a specific height, play a sound.
 			// since the floors and walls are the same objects, cant just play the sound when the marble collides with any block.
 			if(other.gameObject.transform.position.y >= 0.4)
 			{
-				audioSource.volume = Mathf.Min(1.0f, previousMag/8);
-				Debug.Log("Vol: " + audioSource.volume);
-				audioSource.Play();
+				Vector3 vNorm = rb.velocity.normalized;
+				Vector3 cbNorm = (rb.position + other.contacts[0].point).normalized;
+
+				float angleBetween = Mathf.Abs( Vector3.Dot(vNorm, cbNorm));
+
+				float f = Mathf.Cos(angleBetween) * previousMag;
+
+				if(f > 2.0f)
+				{
+					audioSource.volume = Mathf.Min(1.2f, f/8) - 0.2f;
+					audioSource.Play();
+				}
 			}
 		}
 	}
