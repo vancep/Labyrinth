@@ -19,14 +19,14 @@ public class PlayerController : MonoBehaviour {
 		audioSource = GetComponent<AudioSource>();
 		rb = GetComponent<Rigidbody>();
 
-		previousMag = mag = rb.velocity.magnitude;
+		previousMag = mag = rb.velocity.sqrMagnitude;
 	}
 
 	void FixedUpdate()
 	{
 		// used for sound when crashing
 		previousMag = mag;
-		mag = rb.velocity.magnitude;
+		mag = rb.velocity.sqrMagnitude;
 
 		// for mouse controls
 		if(Input.GetButton("Fire1"))
@@ -84,10 +84,11 @@ public class PlayerController : MonoBehaviour {
 				float angleBetween = Mathf.Abs( Vector3.Dot(vNorm, cbNorm));
 
 				float f = Mathf.Cos(angleBetween) * previousMag;
+				Debug.Log(previousMag + " " + f);
 
-				if(f > 2.0f)
+				if(f > 3.0f)
 				{
-					audioSource.volume = Mathf.Min(1.2f, f/8);
+					audioSource.volume = Mathf.Min(1.2f, f/10);
 					if(f > 0.2f)
 					{
 						audioSource.volume -= 0.2f;
