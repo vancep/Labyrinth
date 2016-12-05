@@ -87,7 +87,11 @@ public class PlayerController : MonoBehaviour {
 
 				if(f > 2.0f)
 				{
-					audioSource.volume = Mathf.Min(1.2f, f/8) - 0.2f;
+					audioSource.volume = Mathf.Min(1.2f, f/8);
+					if(f > 0.2f)
+					{
+						audioSource.volume -= 0.2f;
+					}
 					audioSource.Play();
 				}
 			}

@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
+
+#if UNITY_ADS
 using UnityEngine.Advertisements;
+#endif
 
 public class AdScript : MonoBehaviour {
 
@@ -15,6 +18,7 @@ public class AdScript : MonoBehaviour {
 
 	public void ShowAd()
 	{
+		#if UNITY_ADS
 		Debug.Log("Attempting to Show Ad");
 
 		if(Advertisement.IsReady())
@@ -26,5 +30,6 @@ public class AdScript : MonoBehaviour {
 		{
 			Debug.Log("Not Showing Ad");
 		}
+		#endif
 	}
 }
