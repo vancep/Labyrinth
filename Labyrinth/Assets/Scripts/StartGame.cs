@@ -9,7 +9,6 @@ public class StartGame : MonoBehaviour
 
 	private Scene scene;
 
-	private GameObject difficultyObj;
 	private Dropdown difficultyDropdown;
 
 	private GameObject levelSizeObj;
@@ -23,32 +22,11 @@ public class StartGame : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		// get access to some of the different objects
+		difficultyDropdown = UIHelp.getAccessTo<Dropdown>("Difficulty");
+		levelSizeDropdown = UIHelp.getAccessTo<Dropdown>("LevelSize");
+		movingWallsToggle = UIHelp.getAccessTo<Toggle>("MovingWalls");
 
-		// get access to value for difficulty
-		difficultyObj = GameObject.FindWithTag("Difficulty");
-
-		if(difficultyObj != null)
-		{
-			difficultyDropdown = difficultyObj.GetComponent<Dropdown>();
-		}
-
-		// get access to value for level size
-		levelSizeObj = GameObject.FindWithTag("LevelSize");
-
-		if(levelSizeObj != null)
-		{
-			levelSizeDropdown = levelSizeObj.GetComponent<Dropdown>();
-		}
-
-		// get access to value for moving walls
-		movingWallsObj = GameObject.FindWithTag("MovingWalls");
-
-		if(movingWallsObj != null)
-		{
-			movingWallsToggle = movingWallsObj.GetComponent<Toggle>();
-		}
-
-		// get access to object that holds the settings
 		settingsInfo = Object.FindObjectOfType<SettingsInfo>();
 
 		// store difficulty settings
