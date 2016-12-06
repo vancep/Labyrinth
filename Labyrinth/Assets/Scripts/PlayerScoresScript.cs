@@ -50,6 +50,8 @@ public class PlayerScoresScript : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		DontDestroyOnLoad(this);
+
 		allScores = new List<ScoreList>();
 
 		// initializes each score list

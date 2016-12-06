@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour {
 				float angleBetween = Mathf.Abs( Vector3.Dot(vNorm, cbNorm));
 
 				float f = Mathf.Cos(angleBetween) * previousMag;
-				Debug.Log(previousMag + " " + f);
+				//Debug.Log(previousMag + " " + f);
 
 				if(f > 3.0f)
 				{

@@ -12,6 +12,11 @@ public class SettingsInfo : MonoBehaviour
 	{
 		DontDestroyOnLoad(this);
 
+		if(GameObject.FindWithTag("PlayerScores") == null)
+		{
+			PlayerScoresScript pss = gameObject.AddComponent<PlayerScoresScript>();
+		}
+
 		difficulty = 0;
 		levelSize = 0;
 		movingWalls = false;

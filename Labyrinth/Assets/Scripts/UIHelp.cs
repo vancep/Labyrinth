@@ -18,34 +18,4 @@ public static class UIHelp
 		}
 
 	}
-
-	public static Dropdown getAccessToDropdown(string myTag)
-	{
-		GameObject gameObj = GameObject.FindWithTag(myTag);
-
-		if(gameObj != null)
-		{
-			return gameObj.GetComponent<Dropdown>();
-		}
-		else
-		{
-			return null;
-		}
-	}
-
-	public static Toggle getAccessToToggle(string myTag)
-	{
-		GameObject gameObj = GameObject.FindWithTag(myTag);
-
-		if(gameObj != null)
-		{
-			return gameObj.GetComponent<Toggle>();
-		}
-		else
-		{
-			return null;
-		}
-	}
-
-
 }
