@@ -9,12 +9,14 @@ public class SettingsInfo : MonoBehaviour
 
 	public GameObject playersScoresObj;
 
+	private PlayerScoresScript pss;
+
 	// Use this for initialization
 	void Start () 
 	{
 		DontDestroyOnLoad(this);
 
-		PlayerScoresScript pss = UIHelp.getAccessTo<PlayerScoresScript>("PlayerScores");
+		pss = UIHelp.getAccessTo<PlayerScoresScript>("PlayerScores");
 		if(pss == null)
 		{
 			Instantiate(playersScoresObj);
@@ -26,7 +28,12 @@ public class SettingsInfo : MonoBehaviour
 		levelSize = 0;
 		movingWalls = false;
 	}
-	
+
+	public void AddScore(System.TimeSpan time)
+	{
+		pss.AddScore(difficulty, levelSize, movingWalls, time);
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{

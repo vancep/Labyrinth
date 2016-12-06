@@ -4,13 +4,13 @@
     <Files>
       <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\StartGame.cs" Line="5" Column="1" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="9" Column="1" />
+      <File FileName="Assets\Scripts\StartGame.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="212" Column="45" />
       <File FileName="Assets\Scripts\ToMenuScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerScoresScript.cs" Line="64" Column="74" />
-      <File FileName="Assets\Scripts\UIHelp.cs" Line="13" Column="37" />
-      <File FileName="Assets\Scripts\SettingsInfo.cs" Line="19" Column="4" />
-      <File FileName="Assets\Scripts\TellScoresToUpdate.cs" Line="6" Column="25" />
+      <File FileName="Assets\Scripts\PlayerScoresScript.cs" Line="166" Column="3" />
+      <File FileName="Assets\Scripts\UIHelp.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SettingsInfo.cs" Line="27" Column="18" />
+      <File FileName="Assets\Scripts\TellScoresToUpdate.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

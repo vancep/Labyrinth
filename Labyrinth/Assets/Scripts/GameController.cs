@@ -54,7 +54,6 @@ public class GameController : MonoBehaviour
 	// the instantiated 2d array of blocks
 	private GameObject[,] iBoard;
 
-
 	private PlayerController playerController;
 
 	private GameObject settingsObj;
@@ -210,6 +209,7 @@ public class GameController : MonoBehaviour
 			UnityEngine.Debug.Log("Player completed level!");
 			IncrementScore();
 			UpdateScoreDisplay();
+			settingsInfo.AddScore(stopWatch.Elapsed);
 			Reset(true);
 		}
 	}
