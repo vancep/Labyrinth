@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\QuitScript.cs" />
      <Compile Include="Assets\Scripts\SettingsInfo.cs" />
      <Compile Include="Assets\Scripts\StartGame.cs" />
+     <Compile Include="Assets\Scripts\TellScoresToUpdate.cs" />
      <Compile Include="Assets\Scripts\ToMenuScript.cs" />
      <Compile Include="Assets\Scripts\UIHelp.cs" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />

@@ -1,15 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\UIHelp.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\PlayerScoresScript.cs">
     <Files>
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="92" Column="18" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\StartGame.cs" Line="5" Column="1" />
-      <File FileName="Assets\Scripts\GameController.cs" Line="81" Column="17" />
-      <File FileName="Assets\Scripts\SettingsInfo.cs" Line="12" Column="3" />
+      <File FileName="Assets\Scripts\GameController.cs" Line="9" Column="1" />
       <File FileName="Assets\Scripts\ToMenuScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\PlayerScoresScript.cs" Line="32" Column="27" />
+      <File FileName="Assets\Scripts\PlayerScoresScript.cs" Line="64" Column="74" />
       <File FileName="Assets\Scripts\UIHelp.cs" Line="13" Column="37" />
+      <File FileName="Assets\Scripts\SettingsInfo.cs" Line="19" Column="4" />
+      <File FileName="Assets\Scripts\TellScoresToUpdate.cs" Line="6" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

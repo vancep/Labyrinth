@@ -7,14 +7,19 @@ public class SettingsInfo : MonoBehaviour
 	private int levelSize;
 	private bool movingWalls;
 
+	public GameObject playersScoresObj;
+
 	// Use this for initialization
 	void Start () 
 	{
 		DontDestroyOnLoad(this);
 
-		if(GameObject.FindWithTag("PlayerScores") == null)
+		PlayerScoresScript pss = UIHelp.getAccessTo<PlayerScoresScript>("PlayerScores");
+		if(pss == null)
 		{
-			PlayerScoresScript pss = gameObject.AddComponent<PlayerScoresScript>();
+			Instantiate(playersScoresObj);
+			pss = UIHelp.getAccessTo<PlayerScoresScript>("PlayerScores");
+			//pss = gameObject.AddComponent<PlayerScoresScript>();
 		}
 
 		difficulty = 0;

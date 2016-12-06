@@ -35,17 +35,11 @@ struct ScoreList
 
 public class PlayerScoresScript : MonoBehaviour 
 {
-	private GameObject difficultyObj;
 	private Dropdown difficultyDropdown;
-
-	private GameObject levelSizeObj;
 	private Dropdown levelSizeDropdown;
-
-	private GameObject movingWallsObj;
 	private Toggle movingWallsToggle;
 
-
-	private List<ScoreList> allScores;
+	private List<ScoreList> allScores; 
 
 	// Use this for initialization
 	void Start () 
@@ -59,8 +53,38 @@ public class PlayerScoresScript : MonoBehaviour
 
 		// get stored values if they exist or else add in defaults
 		setupStoredScores();
+
+		// get access to some objects
+		difficultyDropdown = UIHelp.getAccessTo<Dropdown>("HsDifficulty");
+		levelSizeDropdown = UIHelp.getAccessTo<Dropdown>("HsSize");
+		movingWallsToggle = UIHelp.getAccessTo<Toggle>("HsMoving");
+
+		if(difficultyDropdown == null || levelSizeDropdown == null || movingWallsToggle == null)
+		{
+			Debug.Log("Not able to access at least one of the dropdowns/toggle.");
+		}
 	}	
-	
+
+	public string getScores(string name)
+	{
+		string scoresText = "Times Completed: " + "0\n\n";
+		scoresText += "Best Times:\n";
+
+		for(int i = 0; i < 10; i++)
+		{
+			scoresText +=	i + ". " + "0:00" + " on " + "12/05/2016" + "\n";
+		}
+
+		return scoresText;
+	}
+
+	public void UpdatePlayerScores()
+	{
+		Debug.Log(difficultyDropdown.value);
+		Debug.Log(levelSizeDropdown.value);
+		Debug.Log(movingWallsToggle.isOn);
+	}
+
 	// Update is called once per frame
 	void Update () 
 	{

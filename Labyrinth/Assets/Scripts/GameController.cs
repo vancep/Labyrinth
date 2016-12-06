@@ -60,6 +60,9 @@ public class GameController : MonoBehaviour
 	private GameObject settingsObj;
 	private SettingsInfo settingsInfo;
 
+	public GameObject highScoresPanel;
+	private GameObject highScoresObj;
+
 	private bool paused;
 
 	private Stopwatch stopWatch;
