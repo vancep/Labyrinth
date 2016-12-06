@@ -51,7 +51,7 @@ public class SettingsInfo : MonoBehaviour
 	/// <param name="s">S.</param>
 	public void setLevelSize(int s)
 	{
-		if(s >= 0 && s <= 3)
+		if(s >= 0 && s <= 2)
 		{
 			levelSize = s;
 		}

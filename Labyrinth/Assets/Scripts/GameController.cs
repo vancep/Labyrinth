@@ -91,17 +91,17 @@ public class GameController : MonoBehaviour
 			endCoord = new coord(14, 14);
 			break;
 		case 1:
+			width = length = 30;
+			endCoord = new coord(29, 29);
+			break;
+		case 2:
 			width = length = 50;
 			endCoord = new coord(49, 49);
 			break;
-		case 2:
-			width = length = 100;
-			endCoord = new coord(99, 99);
-			break;
-		case 3:
+	/*	case 3:
 			width = length = 200;
 			endCoord = new coord(199, 199);
-			break;
+			break;*/
 		}
 		startCoord = new coord(0,0);
 
@@ -516,5 +516,13 @@ public class GameController : MonoBehaviour
 			}
 		}
 
+	}
+
+	void OnApplicationFocus(bool hasFocus)
+	{
+		if(!hasFocus)
+		{
+			PauseGame();
+		}
 	}
 }
