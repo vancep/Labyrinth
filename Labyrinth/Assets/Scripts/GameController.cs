@@ -63,26 +63,28 @@ public class GameController : MonoBehaviour
 	private GameObject highScoresObj;
 
 	private bool paused;
+	private bool lostFocus = false;
 
 	private Stopwatch stopWatch;
 
 	// Use this for initialization
 	void Start () 
 	{
+		// set defaults
 		stopWatch = new Stopwatch();
 		score = 0;
-		UpdateScoreDisplay();
-		PauseGame();
+		UpdateScoreDisplay(); // sets display to 0
+		PauseGame(); // starts game paused until everything else is ready and gets resumed
 
 		// setup actions for buttons
 		resumeButton.onClick.AddListener(delegate { ToggleMenu();});
 		restartLevelButton.onClick.AddListener(delegate {Reset(false);});
 		pauseButton.onClick.AddListener(delegate { ToggleMenu();});
 
-		// get access to settings
+		// get access to settings which will be in settingsInfo variable
 		getSettings();
 
-		// get moving walls
+		// determines whether to use moving walls or not
 		blockMovementEnabled = settingsInfo.getMovingWalls();
 
 		// get level size
@@ -90,21 +92,18 @@ public class GameController : MonoBehaviour
 		{
 		case 0:
 			width = length = 15;
-			endCoord = new coord(14, 14);
 			break;
 		case 1:
 			width = length = 30;
-			endCoord = new coord(29, 29);
 			break;
 		case 2:
 			width = length = 50;
-			endCoord = new coord(49, 49);
 			break;
-	/*	case 3:
-			width = length = 200;
-			endCoord = new coord(199, 199);
-			break;*/
 		}
+
+		// set start and end positions for the maze.
+		// pretty particles get drawn at these positions.
+		endCoord = new coord(width - 1, length - 1);
 		startCoord = new coord(0,0);
 
 		// get difficulty
@@ -120,7 +119,10 @@ public class GameController : MonoBehaviour
 			chanceOfWall = 0.4f;
 			break;
 		}
-		attemptsToCreate = 1000;
+		// max number of attempts to create a board with a valid path.
+		// with current game settings, this is more than enough.
+		// if game settings were increased, would likely need more.
+		attemptsToCreate = 1000; 
 
 		// setup width and length of board
 		board = new float[width, length]; // just contains the y-vals of each block. used for testing stuff before moving real cubes
@@ -130,26 +132,28 @@ public class GameController : MonoBehaviour
 		SetBoardToDefault(); // sets both board and iBoard to 0.0f for all values
 
 		// create border walls
+		// haven't actually used it without the border walls, but it does work if i wanted to use it
 		if(outsideBorder)
 		{
-			CreateBorderWalls(); // also only call this once or else you get walls over walls. thats just silly.
+			CreateBorderWalls(); // also only call this once or else you get walls over walls which is inefficient.
 		}
 
 		CreateBoard();
 		MovePlayerToStart();
-		ResumeGame();
+		ResumeGame(); // finally unpausing the game
 
 		playerController = Object.FindObjectOfType<PlayerController>();
-		if(playerController != null)
-		{
-			
-		}
-		else
+		if(playerController == null)
 		{
 			UnityEngine.Debug.Log("Could not find player.");
 		}
 	}
 
+	/// <summary>
+	/// Creates the board randomly and checks to make sure there is a valid path from start to end.
+	/// It has a limited number of attempts because in certain scenarios that the game currently doesn't use,
+	/// It might not be able to find a valid board in a reasonable amount of time.
+	/// </summary>
 	void CreateBoard()
 	{
 		int attempts = 0;
@@ -159,16 +163,18 @@ public class GameController : MonoBehaviour
 		{
 			SetBoardToDefault();
 			CreateRandomBoard(chanceOfWall);
+
 			attempts++;
+
 			UnityEngine.Debug.Log("Attempt: " + attempts);
 		} while (!isPath() && attempts < attemptsToCreate);
 
 		if(!isPath())
 		{
-			UnityEngine.Debug.Log("Too many attempts to create a board, try with a smaller amount of walls");
+			UnityEngine.Debug.Log("Too many attempts to create a board, try with a smaller amount of walls!");
 		}
 
-		setIBoard();
+		setIBoard(); // copies the values to the actual board that goes on the screen
 
 		if(blockMovementEnabled)
 		{
@@ -179,6 +185,7 @@ public class GameController : MonoBehaviour
 
 	void FixedUpdate()
 	{
+		// move blocks if the blocks should be moving
 		if(blockMovementEnabled)
 		{
 			UpdateMovingBlocks(false);
@@ -201,15 +208,16 @@ public class GameController : MonoBehaviour
 		{
 			ToggleMenu();
 		}
-
-
+			
 		// reset level if player reached the end
 		if(playerController.completedLevel())
 		{
 			UnityEngine.Debug.Log("Player completed level!");
+
 			IncrementScore();
 			UpdateScoreDisplay();
 			settingsInfo.AddScore(stopWatch.Elapsed);
+
 			Reset(true);
 		}
 	}
@@ -261,6 +269,9 @@ public class GameController : MonoBehaviour
 		SetEndPos(endCoord.x, 1, endCoord.z);
 	}
 
+	/// <summary>
+	/// Instantiates the board at a default height of 0.
+	/// </summary>
 	private void InstantiateBoard()
 	{
 		Quaternion rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
@@ -277,6 +288,7 @@ public class GameController : MonoBehaviour
 
 	/// <summary>
 	/// Sets the board to default height of 0.
+	/// Used when creating new boards.
 	/// </summary>
 	private void SetBoardToDefault()
 	{
@@ -290,6 +302,9 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Copies the values from the temp board to the actual board that gets displayed on screen.
+	/// </summary>
 	private void setIBoard()
 	{
 		for(int i = 0; i < width; i++)
@@ -324,6 +339,10 @@ public class GameController : MonoBehaviour
 		board[x,z] = 0.0f;
 	}
 
+	/// <summary>
+	/// Resets player position, creates a new random board, resets time, and then resumes game.
+	/// </summary>
+	/// <param name="resume">If set to <c>true</c> resume.</param>
 	private void Reset(bool resume)
 	{
 		ResetPlayer();
@@ -336,6 +355,9 @@ public class GameController : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Resets the player's position, velocity stuff, and flag.
+	/// </summary>
 	private void ResetPlayer()
 	{
 		playerController.reset();
@@ -347,9 +369,13 @@ public class GameController : MonoBehaviour
 		player.transform.position = startCube.transform.position;
 	}
 
+	/// <summary>
+	/// Checks to see if there is a path from start to finish.
+	/// Does a breadth-first search through maze.
+	/// Might actually be more efficient to do depth-first but haven't checked.
+	/// </summary>
 	private bool isPath()
 	{
-
 		Queue<coord> paths = new Queue<coord>();
 		coord current = startCoord;
 		coord toAdd;
@@ -447,6 +473,7 @@ public class GameController : MonoBehaviour
 		Time.timeScale = 1;
 		stopWatch.Start();
 		paused = false;
+		lostFocus = false;
 	}
 
 	private void ResetStopWatch()
@@ -467,7 +494,7 @@ public class GameController : MonoBehaviour
 
 	private void IncrementScore()
 	{
-		if(score < 999999999)
+		if(score < 99999)
 		{
 			score++;
 		}
@@ -526,6 +553,17 @@ public class GameController : MonoBehaviour
 		if(!hasFocus)
 		{
 			PauseGame();
+			lostFocus = true;
+			pausePanel.SetActive(true);
 		}
+		else if(lostFocus)
+		{
+			pausePanel.SetActive(true);
+		}
+	}
+
+	void OnApplicationQuit()
+	{
+		settingsInfo.SaveScores();
 	}
 }

@@ -14,6 +14,7 @@ public static class UIHelp
 		}
 		else
 		{
+			Debug.Log("Returning Null For " + myTag);
 			return default(T);
 		}
 

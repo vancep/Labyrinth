@@ -49,15 +49,11 @@ public class PlayerScoresScript : MonoBehaviour
 
 		allScores = new List<ScoreList>();
 
-		// initializes each score list
+		// initializes each score list for the variable allScores
 		initScoresList();
 
 		// get stored values if they exist or else add in defaults
-		setupStoredScores();
-
-		// get access to some objects
-		// not doing this here because those objects probably won't exist yet
-		//InitAccess();
+		SetupStoredScores();
 	}	
 
 	public string getScores(int diff, int size, bool toggle)
@@ -75,37 +71,43 @@ public class PlayerScoresScript : MonoBehaviour
 		return scoresText;
 	}
 
+	/// <summary>
+	/// Allows this class to access the UI elements that are holding the current gamemode combination.
+	/// Needs to be called at some point after they exist and before this class tries to access them.
+	/// </summary>
 	private void InitAccess()
 	{
 		if(difficultyDropdown == null)
 		{
 			difficultyDropdown = UIHelp.getAccessTo<Dropdown>("HsDifficulty");
 		}
+
 		if(levelSizeDropdown == null)
 		{
 			levelSizeDropdown = UIHelp.getAccessTo<Dropdown>("HsSize");
 		}
+
 		if(movingWallsToggle == null)
 		{
 			movingWallsToggle = UIHelp.getAccessTo<Toggle>("HsMoving");
 		}
+
 		if(scoresText == null)
 		{
 			scoresText = UIHelp.getAccessTo<Text>("ScoresText");
 		}
 	}
 
+	/// <summary>
+	/// Updates the scoresText object text field with the most current highscores.
+	/// </summary>
 	public void UpdatePlayerScores()
 	{
 		InitAccess();
 
+		Debug.Log("UpdatePlayerScores() " + difficultyDropdown.value + " " + levelSizeDropdown.value + " " + (movingWallsToggle.isOn? 1:0));
+
 		scoresText.text = getScores(difficultyDropdown.value, levelSizeDropdown.value, movingWallsToggle.isOn);
-	}
-
-	// Update is called once per frame
-	void Update () 
-	{
-
 	}
 
 	// have to break this down because other files don't know about my special structs
@@ -144,6 +146,10 @@ public class PlayerScoresScript : MonoBehaviour
 		allScores[modePos].SetTimesCompleted(allScores[modePos].timesCompleted + 1);
 	}
 
+	/// <summary>
+	/// Initializes the scores list to a list of 18 ScoreLists.
+	/// One ScoreList for each possible gamemode combination.
+	/// </summary>
 	private void initScoresList()
 	{
 		foreach(string difficulty in new string[]{"Easy", "Normal", "Hard"})
@@ -158,17 +164,27 @@ public class PlayerScoresScript : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Adds the score to allScores which holds everything until it gets saved to PlayerPrefs.
+	/// </summary>
+	/// <param name="diff">Diff.</param>
+	/// <param name="size">Size.</param>
+	/// <param name="toggle">If set to <c>true</c> toggle.</param>
+	/// <param name="time">Time.</param>
 	public void AddScore(int diff, int size, bool toggle, System.TimeSpan time)
 	{
-		int modePos = (6 * diff) + (2 * size) + (toggle? 1:0);
+		int modePos = (6 * diff) + (2 * size) + (toggle? 1:0); // Determines where in the list to insert new data
 		int minutes = time.Minutes;
 		int seconds = time.Seconds;
 
+		// get current date to store with high score
 		System.DateTime date;
 		date = System.DateTime.Now;
 
+		// updates the number of times the gamemode combination has been played
 		incrementTimesCompleted(modePos);
 
+		// find the right place to insert new score and shift other scores accordingly
 		for(int i = 0; i < 10; i++)
 		{
 			if(minutes <= getMinutes(modePos, i))
@@ -191,20 +207,49 @@ public class PlayerScoresScript : MonoBehaviour
 					allScores[modePos].entries[i].day = date.Day;
 					allScores[modePos].entries[i].year = date.Year;
 
+					Debug.Log("Score Added: " + minutes + ":" + seconds);
 					break;
 				}
 			}
 		}
 	}
 
-	private void setupStoredScores()
+	/// <summary>
+	/// Saves the scores to PlayerPrefs.
+	/// Note, still need to call PLayerPrefs.Save to or wait for OnApplicationQuit() to write prefs to disk
+	/// </summary>
+	public void SaveScores()
+	{
+		Debug.Log("Saving Scores");
+
+		for(int i = 0; i < 18; i++)
+		{
+			// save times completed
+			PlayerPrefs.SetInt(allScores[i].name + "Times Completed", allScores[i].timesCompleted);
+
+			// save each entry
+			for(int j = 0; j < 10; j++)
+			{
+				PlayerPrefs.SetInt(allScores[i].name + j + "minutes", allScores[i].entries[j].minutes);
+				PlayerPrefs.SetInt(allScores[i].name + j + "seconds", allScores[i].entries[j].seconds);
+				PlayerPrefs.SetInt(allScores[i].name + j + "day", allScores[i].entries[j].day);
+				PlayerPrefs.SetInt(allScores[i].name + j + "month", allScores[i].entries[j].month);
+				PlayerPrefs.SetInt(allScores[i].name + j + "year", allScores[i].entries[j].year);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Gets the stored values from PlayerPrefs that were stored via some keys.
+	/// </summary>
+	public void SetupStoredScores()
 	{
 		for(int i = 0; i < allScores.Count; i++)
 		{
 			// get times completed
-			if(PlayerPrefs.HasKey(allScores[i].name + " Times Completed"))
+			if(PlayerPrefs.HasKey(allScores[i].name + "Times Completed"))
 			{
-				allScores[i].SetTimesCompleted(PlayerPrefs.GetInt(allScores[i].name + " Times Completed"));
+				allScores[i].SetTimesCompleted(PlayerPrefs.GetInt(allScores[i].name + "Times Completed"));
 			}
 			else
 			{
@@ -215,19 +260,19 @@ public class PlayerScoresScript : MonoBehaviour
 			for(int j = 0; j < 10; j++)
 			{
 				// get minutes
-				allScores[i].entries[j].minutes = (PlayerPrefs.HasKey(allScores[i].name + j + "minutes")) ? allScores[i].entries[j].minutes = PlayerPrefs.GetInt(allScores[i].name + j + "minutes") : 59;
+				allScores[i].entries[j].minutes = (PlayerPrefs.HasKey(allScores[i].name + j + "minutes")) ? PlayerPrefs.GetInt(allScores[i].name + j + "minutes") : 59;
 
 				// get seconds
-				allScores[i].entries[j].seconds = (PlayerPrefs.HasKey(allScores[i].name + j + "seconds")) ? allScores[i].entries[j].seconds = PlayerPrefs.GetInt(allScores[i].name + j + "seconds") : 59;
+				allScores[i].entries[j].seconds = (PlayerPrefs.HasKey(allScores[i].name + j + "seconds")) ? PlayerPrefs.GetInt(allScores[i].name + j + "seconds") : 59;
 
 				// get day
-				allScores[i].entries[j].day = (PlayerPrefs.HasKey(allScores[i].name + j + "day")) ? allScores[i].entries[j].day = PlayerPrefs.GetInt(allScores[i].name + j + "day") : 0;
+				allScores[i].entries[j].day = (PlayerPrefs.HasKey(allScores[i].name + j + "day")) ? PlayerPrefs.GetInt(allScores[i].name + j + "day") : 12;
 
 				// get month
-				allScores[i].entries[j].month = (PlayerPrefs.HasKey(allScores[i].name + j + "month")) ? allScores[i].entries[j].month = PlayerPrefs.GetInt(allScores[i].name + j + "month") : 0;
+				allScores[i].entries[j].month = (PlayerPrefs.HasKey(allScores[i].name + j + "month")) ? PlayerPrefs.GetInt(allScores[i].name + j + "month") : 12;
 
 				// get year
-				allScores[i].entries[j].year = (PlayerPrefs.HasKey(allScores[i].name + j + "year")) ? allScores[i].entries[j].year = PlayerPrefs.GetInt(allScores[i].name + j + "year") : 0;
+				allScores[i].entries[j].year = (PlayerPrefs.HasKey(allScores[i].name + j + "year")) ? PlayerPrefs.GetInt(allScores[i].name + j + "year") : 12;
 			}
 		}
 	}
