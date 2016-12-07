@@ -8,6 +8,7 @@ public class TellScoresToUpdate : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		pss = UIHelp.getAccessTo<PlayerScoresScript>("PlayerScores");
+		TellScores();
 	}
 		
 	public void TellScores()

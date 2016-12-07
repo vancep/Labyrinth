@@ -553,11 +553,13 @@ public class GameController : MonoBehaviour
 		if(!hasFocus)
 		{
 			PauseGame();
+			pauseButton.gameObject.SetActive(false);
 			lostFocus = true;
 			pausePanel.SetActive(true);
 		}
 		else if(lostFocus)
 		{
+			pauseButton.gameObject.SetActive(false);
 			pausePanel.SetActive(true);
 		}
 	}
