@@ -65,7 +65,7 @@ public class PlayerScoresScript : MonoBehaviour
 
 		for(int i = 0; i < 10; i++)
 		{
-			scoresText +=	i + ". " + getMinutes(modePos, i) + ":" + getSeconds(modePos, i) + " on " + getMonth(modePos, i) + "/" + getDay(modePos, i) + "/" + getYear(modePos, i) + "\n";
+			scoresText +=	i + ". " + getMinutes(modePos, i) + ":" + getSeconds(modePos, i) + "\ton " + getMonth(modePos, i) + "/" + getDay(modePos, i) + "/" + getYear(modePos, i) + "\n";
 		}
 
 		return scoresText;
